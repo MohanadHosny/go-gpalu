@@ -31,7 +31,7 @@ func NewClient(userClient *http.Client) *Client {
 }
 
 // Get new random email address.
-func (client Client) GetAddress() string {
+func (client *Client) GetAddress() string {
 	route := fmt.Sprintf(client.baseUrl, "?random")
 
 	resp, err := client.client.Get(route)
@@ -42,7 +42,7 @@ func (client Client) GetAddress() string {
 }
 
 // Get mail content by id.
-func (client Client) GetContent(email string,  messageId string) string {
+func (client *Client) GetContent(email string,  messageId string) string {
 	data := fmt.Sprintf("%s/%s?noheader", email, messageId)
 	route := fmt.Sprintf(client.baseUrl, data)
 
@@ -53,7 +53,7 @@ func (client Client) GetContent(email string,  messageId string) string {
 }
 
 // Get inbox.
-func (client Client) GetInbox(email string, limit int) []Mail {
+func (client *Client) GetInbox(email string, limit int) []Mail {
 	route := fmt.Sprintf(client.baseUrl, email)
 
 	resp, err := client.client.Get(route)
